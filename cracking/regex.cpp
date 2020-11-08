@@ -21,6 +21,7 @@ bool isMatch( const string &text, const string &pattern )
   int sizeText = text.size();
   int sizePattern = pattern.size();
   std::cout << "Size of input string is: " << sizeText << std::endl;
+  std::cout << "Size of input pattern is: " << sizePattern << std::endl;
   
   std::size_t spos = pattern.find('*'); // Find * position
   if (spos != std::string::npos) { // * found
@@ -28,15 +29,18 @@ bool isMatch( const string &text, const string &pattern )
     int tpos = 0;
     
     std::cout << "Printing * pos: " << spos << std::endl;
-    for (; tpos < sizeText; ++tpos) {
+    for (; ppos < sizePattern; ++ppos) {
+      std::cout << "Printing tpos: " << text[tpos] << std::endl;
+      std::cout << "Printing ppos: " << pattern[ppos] << std::endl;
       // Check for the star pos
+      // We need to perform a for loop for all letters in text matching the pattern letter before *
       if (tpos == (spos-1)) {
-        if (text[tpos] == pattern[spos-1]) {
-          continue;
+        while (text[tpos] == pattern[spos-1]) {
+          ++tpos;
         }
       }
-      ppos = spos + 1;
-      if (text[tpos] == pattern[ppos]) {
+      else if (text[tpos] == pattern[ppos]) {
+        ++tpos;
         continue;
       }
       else {
