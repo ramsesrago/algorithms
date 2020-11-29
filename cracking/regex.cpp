@@ -16,10 +16,10 @@
 using namespace std;
 
 bool isMatchHelper(const string &text, const string &pattern, int textIndex, int pattIndex) {
-  if (textIndex >= text.size()) {
-    if (pattIndex >= pattern.size()) return true;
+  if (textIndex >= text.size()) { 
+    if (pattIndex >= pattern.size()) return true; // Either empty or we finished
     
-    else {
+    else { // Check if the next char is the special char '*' 
       if (pattIndex+1 < pattern.size() && pattern[pattIndex+1] == '*') {
         return isMatchHelper(text, pattern, textIndex, pattIndex+2);
       }
@@ -31,9 +31,10 @@ bool isMatchHelper(const string &text, const string &pattern, int textIndex, int
   
   // String matching for char followed by '*'
   else if ((pattIndex+1 < pattern.size()) && (pattern[pattIndex+1] == '*')) {
-    if (pattern[pattIndex] == '.' || text[textIndex] == pattern[pattIndex]) {
-      return isMatchHelper(text, pattern, textIndex, pattIndex+2) ||
-             isMatchHelper(text, pattern, textIndex+1, pattIndex);
+    // This is the if covering the case considering 0 or more occurences of the same char 
+    if (pattern[pattIndex] == '.' || text[textIndex] == pattern[pattIndex]) { 
+      return isMatchHelper(text, pattern, textIndex, pattIndex+2) || // +2 is zero occurences
+             isMatchHelper(text, pattern, textIndex+1, pattIndex);   // +1 matches a single char
     }
     else return isMatchHelper(text, pattern, textIndex, pattIndex+2);
   }
