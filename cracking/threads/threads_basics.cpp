@@ -1,24 +1,24 @@
 #include <iostream>
 #include <pthread.h>
-
-// Macro for thread names
-// #define TASK(taskname) 	void* task##tasknumber(void*)
+#include <unistd.h>
 
 void* task1(void*) {
     // Get the tid and name from the current context
-    // pthread_t thread = pthread_self();
-    // char threadName[10];
-    // pthread_getname_np(thread, threadName);
-    // std::cout << "Hello my thread name is: " << threadName << std::endl;
+    sleep(1);
+    pthread_t thread = pthread_self();
+    char threadName[16];
+    pthread_getname_np(thread, threadName, sizeof(threadName));
+    std::cout << "Hello my thread name is: " << std::string(threadName) << std::endl;
     return NULL;
 }
 
 void* task2(void*) {
     // Get the tid and name from the current context
-    // pthread_t thread = pthread_self();
-    // char threadName[10];
-    // pthread_getname_np(thread, threadName);
-    // std::cout << "Hello my thread name is: " << threadName << std::endl;
+    sleep(1);
+    pthread_t thread = pthread_self();
+    char threadName[16];
+    pthread_getname_np(thread, threadName, sizeof(threadName));
+    std::cout << "Hello my thread name is: " << std::string(threadName) << std::endl;
     return NULL;
 }
 
@@ -34,9 +34,9 @@ int main() {
     pthread_create(&thread2, NULL, &task2, NULL);
 
     // Set the thread names
-    // pthread_setname_np(thread1, "Task 1");
-    // pthread_setname_np(thread2, "Task 2");
-
+    pthread_setname_np(thread1, "Task 1");
+    pthread_setname_np(thread2, "Task 2");
+    
     // Wait for threads to finish
     pthread_join(thread1, NULL);
     pthread_join(thread2, NULL);

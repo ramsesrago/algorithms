@@ -1,8 +1,8 @@
 Threads
 Threads facts:
-Threads share the heap but not the stack
+Threads share the heap (memoria dinamica, malloc(), new )
+but not the stack (variables, cosas en una funcion, estatica, arreglos, matrices)
 
 - Pointers, Function pointers, function arguments, stack, heap
 - Create a couple of threads and print something from the threads (don't use join)
 - Set thread names and Print thread id's and names of the threads from the threads context
-- Change function to macros
